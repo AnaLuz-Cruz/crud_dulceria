@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        body {
+            background-image: url("{{ url_for('static', filename='img/f3.png') }}"); /* Cambia 'mi_imagen.jpg' por el nombre de tu imagen */
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* La imagen permanece fija cuando se hace scroll */
+            height: 100vh; /* Asegura que el fondo cubra toda la altura de la pantalla */
+            margin: 0; /* Elimina márgenes por defecto */
+        }
+        /* Ajustes generales para el formulario */
+        .container {
+            max-width: 600px;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #343a40;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            text-align: center;
+        }
+
+        .form-control-file {
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Nuevo Producto</h1>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nombre">Nombre del Producto</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="imagen">Imagen del Producto</label>
+                <input type="file" class="form-control-file" id="imagen" name="imagen" required>
+            </div>
+            <button type="submit" class="btn btn-success mb-3">Agregar Producto</button>
+        </form>
+
+        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+</body>
+</html>

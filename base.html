@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulcería</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        body {
+            background-image: url("{{ url_for('static', filename='img/f3.png') }}"); /* Cambia 'mi_imagen.jpg' por el nombre de tu imagen */
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* La imagen permanece fija cuando se hace scroll */
+            height: 100vh; /* Asegura que el fondo cubra toda la altura de la pantalla */
+            margin: 0; /* Elimina márgenes por defecto */
+        }
+
+        /* Estilos para el h1 */
+        h1 {
+            font-size: 3rem; /* Aumenta el tamaño de la fuente */
+            color: #030200; /* Cambia el color a un rojo tomate */
+            font-weight: bold;
+            text-align: center;
+            margin-top: 30px; /* Añade margen superior */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Añade sombra al texto */
+        }
+
+        .card-img-top {
+            height: 200px; /* Ajusta la altura de la imagen */
+            object-fit: cover; /* Para que la imagen se ajuste sin deformarse */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Dulcería Delice</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="btn btn-success" href="{{ url_for('agregar_producto') }}">Agregar Producto</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="my-4">Productos de la Dulcería</h1>
+        
+        <!-- Mostrar mensajes flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-{{ messages[0][0] }}">
+                    {{ messages[0][1] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Mostrar productos -->
+        <div class="row">
+            {% for producto in productos %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="{{ url_for('static', filename='img/' + producto.imagen) }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text">{{ producto.descripcion }}</p>
+                            <a href="{{ url_for('actualizar_producto', id=producto.id) }}" class="btn btn-primary btn-sm">Actualizar</a>
+                            <a href="{{ url_for('eliminar_producto', id=producto.id) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
